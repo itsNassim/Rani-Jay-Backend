@@ -1,0 +1,55 @@
+### BASE
+@baseUrl = http://127.0.0.1:8000/api
+
+### 1) REGISTER
+POST {{baseUrl}}/register/
+Content-Type: application/json
+
+{
+  "first_name": "Nassim",
+  "last_name": "Touati",
+  "email": "test@example.com",
+  "password": "strongpassword123",
+  "client_number": "AT12345",
+  "fix_phone_number": "031123456",
+  "phone_number": "0550123456",
+  "address": "Constantine",
+  "service_type": "ADSL",
+  "user_type": "SIMPLE"
+}
+
+### 2) GET JWT TOKENS
+POST http://127.0.0.1:8000/api/token/
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "strongpassword123"
+}
+
+### Paste the access token here after you get it
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzNTQ3NjUyLCJpYXQiOjE3NjM1NDQwNTIsImp0aSI6IjY1M2E1MTMyNzU5MzQ1ZTRhMTJjMTgwZjgzMzNkZTQyIiwidXNlcl9pZCI6MX0.yUqhzArSqix7yOvJ9zsYNiyI1UiMewBkqUY1_ZlrCmk
+
+### 3) TEST /me/
+GET {{baseUrl}}/me/
+Authorization: Bearer {{accessToken}}
+
+### 4) CREATE COMPLAINT
+POST {{baseUrl}}/complaints/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "complaint_type": "INTERNET_DOWN",
+  "description": "No internet since yesterday evening."
+}
+
+### 4) GET COMPLAINT
+GET {{baseUrl}}/complaints/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "complaint_type": "INTERNET_DOWN",
+  "description": "No internet since yesterday evening."
+}
